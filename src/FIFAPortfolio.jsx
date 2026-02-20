@@ -1,8 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 
-/* ═══════════════════════════════════════════
-   EA FC 25 STYLE PORTFOLIO — SAMIP UDAS
-   ═══════════════════════════════════════════ */
 
 const FONT = "'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif";
 
@@ -19,7 +16,7 @@ const COLORS = {
   cardBorder: "rgba(212, 168, 67, 0.3)",
 };
 
-/* ─── Global Styles ─── */
+/* Global Styles */
 const GlobalStyles = () => (
   <style>{`
     @font-face {
@@ -71,7 +68,7 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-/* ─── FUT Background Texture ─── */
+/* FUT Background Texture */
 const FUTBackground = () => (
   <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none" }}>
     <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 20%, #15130f 0%, #0a0b0f 50%, #070809 100%)" }} />
@@ -92,7 +89,6 @@ const FUTBackground = () => (
   </div>
 );
 
-/* ─── Stat Hexagon SVG ─── */
 const StatHexagon = ({ stats, size = 280 }) => {
   const cx = size / 2, cy = size / 2, r = size * 0.38;
   const labels = Object.keys(stats);
@@ -127,7 +123,6 @@ const StatHexagon = ({ stats, size = 280 }) => {
   );
 };
 
-/* ─── Animated Counter ─── */
 const AnimCounter = ({ target, duration = 1200, suffix = "" }) => {
   const [val, setVal] = useState(0);
   const ref = useRef(null);
@@ -152,7 +147,7 @@ const AnimCounter = ({ target, duration = 1200, suffix = "" }) => {
   return <span ref={ref}>{val}{suffix}</span>;
 };
 
-/* ─── Player Card ─── */
+/* Player Card */
 const PlayerCard = () => (
   <div style={{ width: 400, minHeight: 560, background: "linear-gradient(160deg, #1c1d28 0%, #0f1015 40%, #1a1610 70%, #252015 100%)", border: "1px solid rgba(212,168,67,0.4)", borderRadius: 12, position: "relative", overflow: "hidden", boxShadow: "0 0 60px rgba(212,168,67,0.1), 0 20px 60px rgba(0,0,0,0.5)" }}>
     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, transparent 40%, rgba(212,168,67,0.06) 45%, rgba(212,168,67,0.12) 50%, rgba(212,168,67,0.06) 55%, transparent 60%)", animation: "shimmer 3s ease-in-out infinite" }} />
@@ -187,7 +182,7 @@ const PlayerCard = () => (
   </div>
 );
 
-/* ─── Section Header ─── */
+/* Section Header */
 const SectionHeader = ({ title, subtitle }) => (
   <div style={{ marginBottom: 40, textAlign: "center" }}>
     <div style={{ fontSize: 13, color: COLORS.gold, letterSpacing: 4, fontFamily: FONT, marginBottom: 8, textTransform: "uppercase" }}>{subtitle}</div>
@@ -196,7 +191,7 @@ const SectionHeader = ({ title, subtitle }) => (
   </div>
 );
 
-/* ─── Back Button ─── */
+/* Back Button */
 const BackButton = ({ onClick }) => (
   <button onClick={onClick} style={{
     position: "fixed", top: 20, left: 24, zIndex: 200,
@@ -213,7 +208,7 @@ const BackButton = ({ onClick }) => (
   </button>
 );
 
-/* ─── Formation Pitch ─── */
+/* Formation Pitch */
 const FormationPitch = () => {
   const positions = [
     { name: "Python", rating: 94, pos: "ST", x: 50, y: 12 },
@@ -250,7 +245,7 @@ const FormationPitch = () => {
   );
 };
 
-/* ─── Transfer Card ─── */
+/* Transfer Card */
 const TransferCard = ({ job, index }) => (
   <div style={{ background: "linear-gradient(135deg, #141520 0%, #0f1015 100%)", border: "1px solid rgba(212,168,67,0.15)", borderRadius: 10, padding: 24, position: "relative", overflow: "hidden", animation: `fadeSlideUp 0.6s ease ${index * 0.15}s both` }}>
     <div style={{ position: "absolute", top: 16, right: 16, background: "linear-gradient(135deg, rgba(212,168,67,0.2), rgba(212,168,67,0.05))", border: "1px solid rgba(212,168,67,0.3)", borderRadius: 6, padding: "4px 10px", fontSize: 10, color: COLORS.gold, fontFamily: FONT, letterSpacing: 2 }}>{job.season}</div>
@@ -275,7 +270,7 @@ const TransferCard = ({ job, index }) => (
   </div>
 );
 
-/* ─── Match Card ─── */
+/* Match Card */
 const MatchCard = ({ project, index }) => (
   <div style={{ background: "linear-gradient(135deg, #141520 0%, #0f1015 100%)", border: "1px solid rgba(212,168,67,0.15)", borderRadius: 10, overflow: "hidden", animation: `fadeSlideUp 0.6s ease ${index * 0.15}s both` }}>
     <div style={{ background: "linear-gradient(90deg, rgba(212,168,67,0.1), transparent)", padding: "12px 20px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid rgba(212,168,67,0.1)" }}>
@@ -299,9 +294,6 @@ const MatchCard = ({ project, index }) => (
 );
 
 
-/* ═══════════════════════════════════════════
-   LANDING PAGE
-   ═══════════════════════════════════════════ */
 const LandingPage = ({ onNavigate }) => {
   const boxes = [
     { id: "overview", title: "OVERVIEW", subtitle: "PLAYER PROFILE", description: "Player card, key attributes, and performance radar", rating: "92", accent: COLORS.goldLight },
@@ -420,9 +412,6 @@ const LandingPage = ({ onNavigate }) => {
 };
 
 
-/* ═══════════════════════════════════════════
-   PAGE: OVERVIEW
-   ═══════════════════════════════════════════ */
 const OverviewPage = ({ onBack }) => (
   <div style={{ position: "relative", zIndex: 1, animation: "fadeIn 0.4s ease" }}>
     <BackButton onClick={onBack} />
@@ -445,9 +434,6 @@ const OverviewPage = ({ onBack }) => (
 );
 
 
-/* ═══════════════════════════════════════════
-   PAGE: CAREER
-   ═══════════════════════════════════════════ */
 const CareerPage = ({ onBack }) => {
   const jobs = [
     { title: "IT TECHNICIAN", club: "Caldwell University", location: "Caldwell, NJ", date: "Feb 2023 – Present", season: "SZN 23-26", stats: [{ val: "15-30", label: "TICKETS/WK" }, { val: "5+", label: "STUDENTS/WK" }, { val: "3", label: "DAYS/WK" }], highlights: ["Resolved 15-30 IT support tickets per week spanning hardware failures, software errors, and access issues", "Provided Blackboard LMS and campus Wi-Fi support, diagnosing login, configuration, and connectivity issues", "Worked with internal IT and academic technology teams to escalate and resolve complex issues", "Communicated technical solutions clearly to non-technical users, ensuring adoption and satisfaction"] },
@@ -507,9 +493,6 @@ const CareerPage = ({ onBack }) => {
 };
 
 
-/* ═══════════════════════════════════════════
-   PAGE: MATCHES
-   ═══════════════════════════════════════════ */
 const MatchesPage = ({ onBack }) => {
   const projects = [
     { name: "MULTI-SOURCE FINANCIAL DATA RECONCILIATION", type: "FEATURED MATCH", result: "W", tech: ["PYTHON", "PANDAS", "NUMPY", "OPENPYXL"], highlights: ["Built system to ingest and reconcile financial data from multiple sources including market prices, portfolio holdings, and trade records", "Implemented normalization logic to detect and resolve discrepancies across inconsistent source schemas", "Implemented reconciliation checks and threshold-based alerts to flag abnormal variances", "Generated structured Excel reports for downstream analytics and client-facing delivery"] },
@@ -557,9 +540,6 @@ const MatchesPage = ({ onBack }) => {
 };
 
 
-/* ═══════════════════════════════════════════
-   MAIN APP
-   ═══════════════════════════════════════════ */
 export default function FIFAPortfolio() {
   const [page, setPage] = useState("landing");
 
