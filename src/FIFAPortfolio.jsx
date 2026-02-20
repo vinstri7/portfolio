@@ -64,25 +64,39 @@ const GlobalStyles = () => (
     *::-webkit-scrollbar-track { background: #0a0b0f; }
     *::-webkit-scrollbar-thumb { background: #2a2b35; border-radius: 3px; }
     *::-webkit-scrollbar-thumb:hover { background: #3a3b45; }
-    html, body, #root { font-family: ${FONT}; }
   `}</style>
 );
 
-/* FUT Background Texture */
+/* Stadium Background */
 const FUTBackground = () => (
   <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none" }}>
-    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 20%, #15130f 0%, #0a0b0f 50%, #070809 100%)" }} />
-    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 20% 15%, rgba(212,168,67,0.06) 0%, transparent 50%)" }} />
-    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 80% 85%, rgba(212,168,67,0.04) 0%, transparent 45%)" }} />
-    <div style={{ position: "absolute", inset: 0, opacity: 0.025, backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(212,168,67,1) 30px, rgba(212,168,67,1) 31px)" }} />
-    <div style={{ position: "absolute", inset: 0, opacity: 0.015, backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,1) 2px, rgba(255,255,255,1) 3px)" }} />
-    <div style={{ position: "absolute", inset: 0, opacity: 0.012, backgroundImage: "radial-gradient(circle at 1px 1px, rgba(212,168,67,1) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%)" }} />
+    {/* Stadium image */}
+    <div style={{
+      position: "absolute", inset: 0,
+      backgroundImage: "url('/stadium-bg.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center 30%",
+      backgroundRepeat: "no-repeat",
+    }} />
+    {/* Dark overlay for readability - further lightened */}
+    <div style={{
+      position: "absolute", inset: 0,
+      background: "linear-gradient(180deg, rgba(5,5,10,0.25) 0%, rgba(5,5,10,0.35) 40%, rgba(5,5,10,0.45) 70%, rgba(5,5,10,0.55) 100%)",
+    }} />
+    {/* Gold ambient glow top-left */}
+    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 20% 15%, rgba(212,168,67,0.05) 0%, transparent 50%)" }} />
+    {/* Gold ambient glow bottom-right */}
+    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 80% 85%, rgba(212,168,67,0.03) 0%, transparent 45%)" }} />
+    {/* Subtle diagonal line pattern */}
+    <div style={{ position: "absolute", inset: 0, opacity: 0.02, backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(212,168,67,1) 30px, rgba(212,168,67,1) 31px)" }} />
+    {/* Vignette (softened further) */}
+    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.2) 100%)" }} />
+    {/* Floating gold particles */}
     {Array.from({ length: 12 }).map((_, i) => (
       <div key={i} style={{
         position: "absolute", left: `${8 + (i * 7.5) % 85}%`, bottom: `${-5 + (i * 13) % 20}%`,
         width: 2 + (i % 3), height: 2 + (i % 3), borderRadius: "50%",
-        background: `rgba(212,168,67,${0.2 + (i % 4) * 0.1})`,
+        background: `rgba(212,168,67,${0.15 + (i % 4) * 0.08})`,
         animation: `particleFloat ${6 + (i % 5) * 2}s ease-in-out ${i * 0.8}s infinite`,
       }} />
     ))}
@@ -123,6 +137,7 @@ const StatHexagon = ({ stats, size = 280 }) => {
   );
 };
 
+/* Animated Counter */
 const AnimCounter = ({ target, duration = 1200, suffix = "" }) => {
   const [val, setVal] = useState(0);
   const ref = useRef(null);
@@ -263,7 +278,7 @@ const TransferCard = ({ job, index }) => (
     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
       {job.highlights.map((h, i) => (
         <div key={i} style={{ fontSize: 15, color: COLORS.text, fontFamily: FONT, lineHeight: 1.5, paddingLeft: 16, position: "relative" }}>
-          <span style={{ position: "absolute", left: 0, color: COLORS.accent, fontSize: 11 }}>&#9656;</span>{h}
+          <span style={{ position: "absolute", left: 0, color: COLORS.accent, fontSize: 10 }}>&#9656;</span>{h}
         </div>
       ))}
     </div>
@@ -286,7 +301,7 @@ const MatchCard = ({ project, index }) => (
       </div>
       {project.highlights.map((h, i) => (
         <div key={i} style={{ fontSize: 15, color: COLORS.text, fontFamily: FONT, lineHeight: 1.5, marginBottom: 6, paddingLeft: 16, position: "relative" }}>
-          <span style={{ position: "absolute", left: 0, color: COLORS.gold, fontSize: 14 }}>&#9679;</span>{h}
+          <span style={{ position: "absolute", left: 0, color: COLORS.gold, fontSize: 10 }}>&#9656;</span>{h}
         </div>
       ))}
     </div>
@@ -391,14 +406,11 @@ const LandingPage = ({ onNavigate }) => {
             ))}
           </div>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", marginTop: 28 }}>
-            {[
-              { label: 'GitHub', href: 'https://github.com/vinstri7' },
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/samipudas' }
-            ].map((s, i) => (
-              <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" style={{ background: `linear-gradient(135deg, ${COLORS.gold}, ${COLORS.goldDark})`, border: "none", borderRadius: 8, padding: "12px 32px", cursor: "pointer", fontSize: 13, fontWeight: 700, color: "#0a0b0f", fontFamily: FONT, letterSpacing: 2, transition: "all 0.3s ease", textDecoration: "none", display: "inline-block" }}
+            {["GitHub", "LinkedIn"].map((s, i) => (
+              <button key={i} onClick={() => window.open("#", "_blank")} style={{ background: `linear-gradient(135deg, ${COLORS.gold}, ${COLORS.goldDark})`, border: "none", borderRadius: 8, padding: "12px 32px", cursor: "pointer", fontSize: 13, fontWeight: 700, color: "#0a0b0f", fontFamily: FONT, letterSpacing: 2, transition: "all 0.3s ease" }}
                 onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
                 onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
-              >{s.label.toUpperCase()}</a>
+              >{s.toUpperCase()}</button>
             ))}
           </div>
         </div>
@@ -412,6 +424,7 @@ const LandingPage = ({ onNavigate }) => {
 };
 
 
+/* PAGE: OVERVIEW */
 const OverviewPage = ({ onBack }) => (
   <div style={{ position: "relative", zIndex: 1, animation: "fadeIn 0.4s ease" }}>
     <BackButton onClick={onBack} />
@@ -434,6 +447,7 @@ const OverviewPage = ({ onBack }) => (
 );
 
 
+/* PAGE: CAREER */
 const CareerPage = ({ onBack }) => {
   const jobs = [
     { title: "IT TECHNICIAN", club: "Caldwell University", location: "Caldwell, NJ", date: "Feb 2023 – Present", season: "SZN 23-26", stats: [{ val: "15-30", label: "TICKETS/WK" }, { val: "5+", label: "STUDENTS/WK" }, { val: "3", label: "DAYS/WK" }], highlights: ["Resolved 15-30 IT support tickets per week spanning hardware failures, software errors, and access issues", "Provided Blackboard LMS and campus Wi-Fi support, diagnosing login, configuration, and connectivity issues", "Worked with internal IT and academic technology teams to escalate and resolve complex issues", "Communicated technical solutions clearly to non-technical users, ensuring adoption and satisfaction"] },
@@ -458,8 +472,8 @@ const CareerPage = ({ onBack }) => {
           </div>
           <div style={{ display: "flex", justifyContent: "center", gap: 40, padding: "30px 24px" }}>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 48, fontWeight: 700, color: COLORS.goldLight, fontFamily: FONT, lineHeight: 1 }}><AnimCounter target={392} /></div>
-              <div style={{ fontSize: 12, color: COLORS.textDim, letterSpacing: 1, fontFamily: FONT, marginTop: 4 }}>GPA (3.92)</div>
+              <div style={{ fontSize: 48, fontWeight: 700, color: COLORS.goldLight, fontFamily: FONT, lineHeight: 1 }}>3.92</div>
+              <div style={{ fontSize: 12, color: COLORS.textDim, letterSpacing: 1, fontFamily: FONT, marginTop: 4 }}>GPA</div>
             </div>
             <div style={{ width: 1, background: "rgba(255,255,255,0.1)" }} />
             <div style={{ textAlign: "center" }}>
@@ -493,6 +507,7 @@ const CareerPage = ({ onBack }) => {
 };
 
 
+/* PAGE: MATCHES */
 const MatchesPage = ({ onBack }) => {
   const projects = [
     { name: "MULTI-SOURCE FINANCIAL DATA RECONCILIATION", type: "FEATURED MATCH", result: "W", tech: ["PYTHON", "PANDAS", "NUMPY", "OPENPYXL"], highlights: ["Built system to ingest and reconcile financial data from multiple sources including market prices, portfolio holdings, and trade records", "Implemented normalization logic to detect and resolve discrepancies across inconsistent source schemas", "Implemented reconciliation checks and threshold-based alerts to flag abnormal variances", "Generated structured Excel reports for downstream analytics and client-facing delivery"] },
@@ -529,7 +544,7 @@ const MatchesPage = ({ onBack }) => {
             </div>
             {["Led planning and execution of large-scale events, managing logistics, budgets, and timelines", "Organized Tihar, one of the largest campus events, coordinating fundraising and team collaboration for 500+ attendees"].map((h, i) => (
               <div key={i} style={{ fontSize: 15, color: COLORS.text, fontFamily: FONT, lineHeight: 1.6, paddingLeft: 16, position: "relative", marginBottom: 8 }}>
-                <span style={{ position: "absolute", left: 0, color: COLORS.gold }}>&#9656;</span>{h}
+                <span style={{ position: "absolute", left: 0, color: COLORS.gold, fontSize: 10 }}>&#9656;</span>{h}
               </div>
             ))}
           </div>
@@ -540,6 +555,7 @@ const MatchesPage = ({ onBack }) => {
 };
 
 
+/* MAIN APP */
 export default function FIFAPortfolio() {
   const [page, setPage] = useState("landing");
 
