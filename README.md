@@ -1,70 +1,131 @@
-# Getting Started with Create React App
+# SAMIP UDAS — EA FC 25 Style Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An interactive personal portfolio website built as a single-page React application, themed after EA FC 25's Ultimate Team interface. The site presents resume content — education, work experience, technical skills, projects, and leadership — through FIFA-inspired UI patterns like player cards, squad formations, match results, and transfer bids.
 
-## Available Scripts
+**Live Stack:** React (no external dependencies) · CSS-in-JS · SF Pro Display font stack
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Architecture
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The app uses a simple client-side page router (`useState`) with four views:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+Landing Page (Hub)
+├── Overview Page   → Player card + stat radar
+├── Career Page     → Education + work experience + skills formation
+└── Matches Page    → Projects + leadership
+```
 
-### `npm test`
+No React Router or external libraries required. Navigation is handled through state, and each page transition includes a fade-in animation.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Pages & Sections
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Landing Page
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The entry point. Contains three navigation boxes styled as FUT gold player cards and a contact section.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Navigation Boxes** — Three clickable cards (Overview, Career, Matches) with gold shimmer overlays, hover-lift animations, and accent-colored top borders. Each displays a subtitle, description, and faded rating watermark. Clicking routes to the corresponding page.
+- **Contact Section ("Submit Transfer Bid")** — Email and phone as interactive links, plus GitHub/LinkedIn buttons with gold gradient styling. Sits directly below the navigation boxes.
+- **Footer** — Minimal branding line.
 
-### `npm run eject`
+### Overview Page
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The player profile view.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Player Card** — A 400×560px FUT TOTY-style card showing an overall rating (92), position (DEV), club badge (CU), avatar placeholder (initials), name, and a 3×2 stat grid (PYT, JAV, SQL, DAT, ML, LDR). Includes a shimmer animation and floating hover effect.
+- **Stat Radar (Hexagon)** — An SVG-rendered hexagonal chart plotting six skill attributes. Three concentric grid layers with connecting spokes. The filled polygon uses green (#00e5a0) against gold gridlines.
+- **Bio Text** — Name, tagline ("Team of the Year Nominee"), and a short summary paragraph.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Career Page
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Education, work history, and technical skills.
 
-## Learn More
+- **Education ("Club History")** — A card with a crimson Caldwell University banner, animated GPA counter (3.92), Dean's List count (7x), and coursework listed as green "Training Module" badges.
+- **Work Experience ("Transfer History")** — Two transfer-style cards (IT Technician, Student Researcher) each showing a season badge, key stat row, and bullet-point highlights. Cards animate in with staggered fade-slide-up.
+- **Technical Skills ("Squad Builder")** — An interactive football pitch rendered in CSS with 11 skill "players" in a 3-4-3 formation. Each player is a mini card showing position abbreviation, rating, and skill name. Cards scale on hover.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Matches Page
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Projects and leadership.
 
-### Code Splitting
+- **Projects ("Match Highlights")** — Two match result cards (Financial Data Reconciliation, Food Recognition App) with match type labels, completion status badges, tech stack pill tags, and bullet-point details.
+- **Leadership ("Captain's Armband")** — A single card for the NSO President role with a gold "C" captain badge, stat row ($5000+ budget, 500+ attendees, Tihar flagship event), and highlight bullets. The card has a pulsing gold glow animation.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## Visual Design System
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+| Element | Value |
+|---|---|
+| Primary Background | `#0a0b0f` (near-black) |
+| Gold Accent | `#d4a843` / `#f0d078` (light) / `#8a6d2b` (dark) |
+| Green Accent | `#00e5a0` (stats, badges) |
+| Blue Accent | `#00b4ff` (status indicators) |
+| Font Stack | SF Pro Display → -apple-system → BlinkMacSystemFont → Helvetica Neue |
+| Card Style | Dark gradient backgrounds with 1px gold borders, shimmer overlays |
 
-### Making a Progressive Web App
+### Background Layers (FUT Texture)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The background is composed of seven fixed layers stacked via `position: fixed`:
 
-### Advanced Configuration
+1. Dark radial gradient base
+2. Gold ambient glow (top-left)
+3. Gold ambient glow (bottom-right)
+4. 45° diagonal line pattern (opacity 0.025)
+5. Horizontal scanlines (opacity 0.015)
+6. Dot grid pattern (opacity 0.012)
+7. Radial vignette
+8. 12 floating gold particles with staggered CSS animations
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+npx create-react-app fifa-portfolio
+cd fifa-portfolio
+```
 
-### `npm run build` fails to minify
+Replace `src/index.js`:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import FIFAPortfolio from './FIFAPortfolio';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<FIFAPortfolio />);
+```
+
+Copy `FIFAPortfolio.jsx` into `src/`, then:
+
+```bash
+npm start
+```
+
+Add `<style>* { margin: 0; padding: 0; box-sizing: border-box; }</style>` to `public/index.html` `<head>` for clean rendering.
+
+---
+
+## Customization Points
+
+- **Avatar** — Replace the `SU` initials div in `PlayerCard` with an `<img>` tag
+- **Social Links** — Update the `window.open("#")` calls in the contact section with actual GitHub/LinkedIn URLs
+- **Ratings/Stats** — All skill ratings are defined as plain numbers in each component's data arrays
+- **Colors** — All colors are centralized in the `COLORS` object at the top of the file
+- **Navigation Box Images** — The three landing page boxes have placeholder areas ready for background images
+- **Content** — All resume text is stored as plain strings in component-level data arrays, not in a separate data file
+
+---
+
+## File Structure
+
+```
+src/
+└── FIFAPortfolio.jsx    ← Entire app (single file, ~600 lines)
+```
+
+Everything — components, styles, data, routing — lives in one file for portability. No external CSS, no asset dependencies, no API calls.
